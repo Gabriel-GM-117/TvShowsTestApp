@@ -1,4 +1,3 @@
-
 import Foundation
 
 class TheMovieDBService {
@@ -40,6 +39,4 @@ class TheMovieDBService {
         { return }
             ServicesManager().fetchRequest(with: request, completion: completion)
     }
-    
 }
-

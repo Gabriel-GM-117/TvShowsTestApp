@@ -1,6 +1,4 @@
-
 import Foundation
-
 
 struct PopularMoviesEntity: Decodable {
     var id: Int?
@@ -22,7 +20,4 @@ struct PopularMoviesEntity: Decodable {
         case firstAirDate = "first_air_date"
         case nameTV
     }
-    
 }
-
-

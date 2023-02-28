@@ -1,6 +1,4 @@
-
 import Foundation
-
 
 // MARK: - AuthResponse
 struct AuthToken: Codable {
@@ -13,7 +11,6 @@ struct AuthToken: Codable {
         case expiresAt = "expires_at"
     }
 }
-
 
 // MARK: - AuthSessionResponse
 struct AuthSessionResponse: Codable {
@@ -49,4 +46,3 @@ struct RequestUser: Codable {
         case requestToken = "request_token"
     }
 }
-

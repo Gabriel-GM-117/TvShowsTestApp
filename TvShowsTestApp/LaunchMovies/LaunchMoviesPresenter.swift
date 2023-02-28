@@ -1,17 +1,6 @@
-//
-//  LaunchMoviesPresenter.swift
-//  TvShowsTestApp
-//
-//  Created by Gabriel GM on 24/02/23.
-//  
-//
-
 import Foundation
 
 class LaunchMoviesPresenter: LaunchMoviesPresenterProtocol  {
- 
-   
-    
     
     // MARK: Properties
     weak var view: LaunchMoviesViewProtocol?
@@ -34,16 +23,11 @@ class LaunchMoviesPresenter: LaunchMoviesPresenterProtocol  {
     func showInfoPerfil() {
         router?.presentInfoPerfil()
     }
-    
-    
 }
-
-
 
 extension LaunchMoviesPresenter: LaunchMoviesInteractorOutputProtocol {
     
     // TODO: implement interactor output methods
-    
     func didRetrive(dataMovies: [PopularMoviesEntity]) {
         view?.showMovieList(dataMovies: dataMovies)
     }
@@ -51,5 +35,4 @@ extension LaunchMoviesPresenter: LaunchMoviesInteractorOutputProtocol {
     func didRetrive(data: Any, flow: Flow) {
         router?.showDetailView(data: data, flow: flow)
     }
-    
 }

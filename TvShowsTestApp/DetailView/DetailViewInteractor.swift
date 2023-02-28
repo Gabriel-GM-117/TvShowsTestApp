@@ -1,21 +1,9 @@
-//
-//  DetailViewInteractor.swift
-//  TvShowsTestApp
-//
-//  Created by Gabriel GM on 26/02/23.
-//  
-//
-
 import Foundation
 
 class DetailViewInteractor: DetailViewInteractorInputProtocol {
   
-    
-
     // MARK: Properties
     weak var presenter: DetailViewInteractorOutputProtocol?
-//    var localDatamanager: DetailViewLocalDataManagerInputProtocol?
-//    var remoteDatamanager: DetailViewRemoteDataManagerInputProtocol?
     private let service = TheMovieDBService()
     
     func getMovie(idMovie: Int) {
@@ -34,7 +22,3 @@ class DetailViewInteractor: DetailViewInteractorInputProtocol {
     }
 
 }
-
-//extension DetailViewInteractor: DetailViewRemoteDataManagerOutputProtocol {
-//    // TODO: Implement use case methods
-//}

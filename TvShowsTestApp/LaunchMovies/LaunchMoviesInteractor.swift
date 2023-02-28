@@ -1,16 +1,7 @@
-//
-//  LaunchMoviesInteractor.swift
-//  TvShowsTestApp
-//
-//  Created by Gabriel GM on 24/02/23.
-//  
-//
-
 import Foundation
 
 class LaunchMoviesInteractor: LaunchMoviesInteractorInputProtocol {
  
-    
     // MARK: Properties
     weak var presenter: LaunchMoviesInteractorOutputProtocol?
     private let service = TheMovieDBService()

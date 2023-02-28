@@ -1,10 +1,3 @@
-//
-//  DetailMovieCell.swift
-//  TvShowsTestApp
-//
-//  Created by Gabriel GM on 27/02/23.
-//
-
 import UIKit
 
 class DetailMovieCell: UICollectionViewCell {
@@ -31,9 +24,6 @@ class DetailMovieCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        
-//        self.contentView.backgroundColor = .brown
-
     }
     
     required init?(coder: NSCoder) {
@@ -41,19 +31,13 @@ class DetailMovieCell: UICollectionViewCell {
     }
     
     func setupViews() {
-
         self.contentView.addSubview(productionCompanieImageView)
         self.contentView.addSubview(productionCompanieName)
-//        movieView.addSubview(movieImageView)
-//        movieView.addSubview(movieName)
-//        movieView.addSubview(movieDescription)
-        
+
         NSLayoutConstraint.activate([
             productionCompanieImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             productionCompanieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             productionCompanieImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-//            productionCompanieImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-//            productionCompanieImageView.heightAnchor.constraint(equalToConstant: 100),
             
             productionCompanieName.topAnchor.constraint(equalTo: productionCompanieImageView.bottomAnchor, constant: 20),
             productionCompanieName.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
@@ -61,19 +45,16 @@ class DetailMovieCell: UICollectionViewCell {
             productionCompanieName.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             productionCompanieName.heightAnchor.constraint(equalToConstant: 40)
 
-            
         ])
     }
     
     func setInformation(dataInfo: DetailDataCell?) {
-        
         guard let url = URL(string: Path.baseImage.stringURL + (dataInfo?.imageURL ?? "")) else { return }
         self.productionCompanieImageView.load(url: url)
         self.productionCompanieName.text = dataInfo?.name
     }
     
     func setInformation(dataInfo: ProductionCompany?) {
-        
         guard let url = URL(string: Path.baseImage.stringURL + (dataInfo?.logoPath ?? "")) else { return }
         self.productionCompanieImageView.load(url: url)
         self.productionCompanieName.text = dataInfo?.name

@@ -1,11 +1,3 @@
-//
-//  LaunchMoviesWireFrame.swift
-//  TvShowsTestApp
-//
-//  Created by Gabriel GM on 24/02/23.
-//  
-//
-
 import Foundation
 import UIKit
 
@@ -30,8 +22,6 @@ class LaunchMoviesRouter: LaunchMoviesRouterProtocol {
     
     func showDetailView(data: Any, flow: Flow) {
         guard let view = self.view as? UIViewController else { return }
-        print("detalle de pelicula: \(data)")
-
         DispatchQueue.main.async {
             let vc = DetailViewRouter.createDetailViewModule(data: data, flow: flow)
             view.navigationController?.pushViewController(vc, animated: true)
@@ -48,7 +38,4 @@ class LaunchMoviesRouter: LaunchMoviesRouterProtocol {
         alerta.addAction(accion2)
         view.present(alerta, animated: true, completion: nil)
     }
-    
-    
-
 }

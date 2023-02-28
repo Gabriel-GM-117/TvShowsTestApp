@@ -1,4 +1,3 @@
-
 import Foundation
 
 internal class ServicesManager {
@@ -59,8 +58,6 @@ internal class ServicesManager {
         
     }
     
-    
-    
     func fetchRequest<T: Codable>(with request: URLRequest, completion: @escaping(Result<T, RequestError>) -> Void) {
 
         URLSession.shared.dataTask(with: request) { data, response , error in
@@ -91,7 +88,6 @@ internal class ServicesManager {
         }.resume()
     }
     
-    
     fileprivate func getError(response: URLResponse?, data: Data) -> RequestError {
         guard let httpResponse = response as? HTTPURLResponse else {
             return RequestError(statusCode: 00, description: "Error getting description of server error.")
@@ -107,6 +103,4 @@ internal class ServicesManager {
             return RequestError(statusCode: 00, description: "Tuvimos un problema, vuelve a intentarlo más tarde", data: data)
         }
     }
-    
 }
-

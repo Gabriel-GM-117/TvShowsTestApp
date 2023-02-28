@@ -1,10 +1,3 @@
-//
-//  MovieViewCell.swift
-//  TvShowsTestApp
-//
-//  Created by Gabriel GM on 25/02/23.
-//
-
 import UIKit
 
 class MovieViewCell: UICollectionViewCell {
@@ -12,7 +5,6 @@ class MovieViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-//        imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 12.0
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -53,18 +45,14 @@ class MovieViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        
         self.contentView.backgroundColor = UIColor(hexString: "#21242e")
-
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-
     func setupViews() {
-
         self.contentView.addSubview(movieView)
         movieView.addSubview(movieImageView)
         movieView.addSubview(movieName)
@@ -97,9 +85,7 @@ class MovieViewCell: UICollectionViewCell {
         ])
     }
     
-    
     func setInformation(model: PopularMoviesEntity) {
-        
         guard let url = URL(string: Path.baseImage.stringURL + model.imageURL) else { return }
         movieImageView.load(url: url)
         movieName.text = model.title

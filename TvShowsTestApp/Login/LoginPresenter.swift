@@ -1,8 +1,6 @@
-
 import Foundation
 
 class LoginPresenter: LoginPresenterProtocol  {
- 
     
     // MARK: Properties
     weak var view: LoginViewProtocol?
@@ -17,14 +15,11 @@ class LoginPresenter: LoginPresenterProtocol  {
         let token = Repository.tokenAuth?.requestToken
         interactor?.getAuthUser(token: token ?? "")
     }
-    
-    
 }
 
 extension LoginPresenter: LoginInteractorOutputProtocol {
     
     // TODO: implement interactor output methods
-    
     func didRetrive(data: AuthToken) {
         guard let token = data.requestToken else { return }
         interactor?.getAuth(token: token)
@@ -45,6 +40,4 @@ extension LoginPresenter: LoginInteractorOutputProtocol {
     func didFlow() {
         router?.showFow()
     }
-    
-    
 }
