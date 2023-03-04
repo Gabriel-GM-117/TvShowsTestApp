@@ -10,10 +10,7 @@ class DetailViewInteractor: DetailViewInteractorInputProtocol {
         service.getDetailfMovie(idMovie: idMovie) { [weak self] result in
             switch result {
             case .success(let success):
-                print("exito \(String(describing: success))")
-                guard let objResp = success else { return
-                    // self?.presenter?.didShowError(error)
-                }
+                guard let objResp = success else { return }
                 self?.presenter?.didRetrive(dataMovie: objResp)
             case .failure(let failure):
                 print("error\(failure)")

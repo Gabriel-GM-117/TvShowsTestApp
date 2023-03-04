@@ -1,7 +1,7 @@
 import Foundation
 
-struct PopularMoviesEntity: Decodable {
-    var id: Int?
+struct MovieEntity: Decodable {
+    var id: Int
     var title: String?
     var overview: String?
     var imageURL: String

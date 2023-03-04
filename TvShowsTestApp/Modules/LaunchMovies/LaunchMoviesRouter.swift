@@ -30,12 +30,25 @@ class LaunchMoviesRouter: LaunchMoviesRouterProtocol {
     
     func presentInfoPerfil() {
         guard let view = self.view as? UIViewController else { return }
-        let alerta = UIAlertController(title: "What do you want to do", message: "View Profile", preferredStyle: .actionSheet)
-        let accion1 = UIAlertAction(title: "Log out", style: .default) { _ in
-            alerta.dismiss(animated: true, completion: nil) }
-        let accion2 = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
-        alerta.addAction(accion1)
-        alerta.addAction(accion2)
-        view.present(alerta, animated: true, completion: nil)
+        let alert = UIAlertController(title: "What do you want to do", message: "", preferredStyle: .actionSheet)
+        let actionOne = UIAlertAction(title: "View Profile", style: .default) { _ in
+            let vc = DetailProfileRouter.createDetailProfileModule()
+            view.present(vc, animated: true)
+        }
+        let actionTwo = UIAlertAction(title: "Log out", style: .default) { _ in
+            alert.dismiss(animated: true, completion: nil)
+            self.view?.presenter?.closeSession()
+            if Repository.authSessionFlag {
+                view.navigationController?.popToRootViewController(animated: true)
+            } else {
+                view.navigationController?.popToRootViewController(animated: true)
+            }
+        }
+        actionTwo.setValue(UIColor.red, forKey: "titleTextColor")
+        let actionThree = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
+        alert.addAction(actionOne)
+        alert.addAction(actionTwo)
+        alert.addAction(actionThree)
+        view.present(alert, animated: true, completion: nil)
     }
 }

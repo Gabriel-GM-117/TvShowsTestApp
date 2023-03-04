@@ -24,4 +24,6 @@ internal extension Path {
     static let authenticateRequest = Path(stringURL: "https://www.themoviedb.org/authenticate/")
     static let authSessionNew = Path(stringURL: "https://api.themoviedb.org/3/authentication/session/new")
     static let authWithUser = Path(stringURL: "https://api.themoviedb.org/3/authentication/token/validate_with_login")
+    static let accountDetail = Path(stringURL: "https://api.themoviedb.org/3/account")
+    static let logOutSession = Path(stringURL: "https://api.themoviedb.org/3/authentication/session")
 }

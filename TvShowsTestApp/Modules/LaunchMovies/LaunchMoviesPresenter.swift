@@ -23,16 +23,21 @@ class LaunchMoviesPresenter: LaunchMoviesPresenterProtocol  {
     func showInfoPerfil() {
         router?.presentInfoPerfil()
     }
+    
+    func closeSession() {
+        interactor?.logOut()
+    }
 }
 
 extension LaunchMoviesPresenter: LaunchMoviesInteractorOutputProtocol {
     
     // TODO: implement interactor output methods
-    func didRetrive(dataMovies: [PopularMoviesEntity]) {
+    func didRetrive(dataMovies: [MovieEntity]) {
         view?.showMovieList(dataMovies: dataMovies)
     }
     
     func didRetrive(data: Any, flow: Flow) {
         router?.showDetailView(data: data, flow: flow)
     }
+    
 }

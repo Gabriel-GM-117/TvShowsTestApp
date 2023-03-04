@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class LoginRouter: LoginRouterProtocol {
-    
+  
     weak var view: LoginViewProtocol?
     
     static func createLoginModule() -> UIViewController {
@@ -28,5 +28,4 @@ class LoginRouter: LoginRouterProtocol {
             view.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
 }

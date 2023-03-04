@@ -3,7 +3,7 @@ import UIKit
 
 class DetailViewVC: UIViewController {
     
-    let movieName: UILabel = {
+    private let movieName: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 18)
@@ -13,7 +13,7 @@ class DetailViewVC: UIViewController {
     }()
     
     
-    let movieDate: UILabel = {
+    private let movieDate: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 10)
@@ -22,7 +22,7 @@ class DetailViewVC: UIViewController {
         return label
     }()
     
-    let movieImageView: UIImageView = {
+    private let movieImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
         imageView.clipsToBounds = true
@@ -30,7 +30,7 @@ class DetailViewVC: UIViewController {
         return imageView
     }()
     
-    let movieGenre: UILabel = {
+    private let movieGenre: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 12)
@@ -40,7 +40,7 @@ class DetailViewVC: UIViewController {
         return label
     }()
     
-    let movieDescription: UILabel = {
+    private let movieDescription: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 10)
@@ -49,7 +49,7 @@ class DetailViewVC: UIViewController {
         return label
     }()
     
-    let moviePopularity: UILabel = {
+    private let moviePopularity: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 15)
@@ -58,7 +58,7 @@ class DetailViewVC: UIViewController {
         return label
     }()
     
-    let movieVoteAverage: UILabel = {
+    private let movieVoteAverage: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 15)
@@ -205,7 +205,7 @@ extension DetailViewVC: DetailViewViewProtocol {
    
     // TODO: implement view output methods
     func showMovieList(dataMovie: DetailMovieResponse) {
-        print("informacion de pelicula: \(dataMovie)")
+        //
     }
 }
 

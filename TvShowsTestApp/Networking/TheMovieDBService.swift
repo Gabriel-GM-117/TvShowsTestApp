@@ -39,4 +39,21 @@ class TheMovieDBService {
         { return }
             ServicesManager().fetchRequest(with: request, completion: completion)
     }
+    
+    func getInfoProfile(completion: @escaping(Result<ResponseDetailUser?, RequestError>) -> Void) {
+        let strURl = Path.accountDetail.stringURL + Path.apiKey.stringURL
+        ServicesManager().fetchRequest(strUrl: strURl, completion: completion)
+    }
+    
+    func logOut(completion: @escaping(Result<LogOutResponse?, RequestError>) -> Void) {
+        let strURL = Path.logOutSession.stringURL + Path.apiKey.stringURL
+        guard let param1 = Repository.authSession?.sessionID else { return }
+        
+        let parametros = ["session_id": param1]
+        guard let request = ServicesManager().createRequest(urlString: strURL, HTTPMethod: .post, bodyObjAny: parametros) else
+        { return }
+        ServicesManager().fetchRequest(with: request, completion: completion)
+    }
+    
+    
 }

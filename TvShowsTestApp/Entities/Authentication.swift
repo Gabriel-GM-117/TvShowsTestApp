@@ -46,3 +46,8 @@ struct RequestUser: Codable {
         case requestToken = "request_token"
     }
 }
+
+// MARK: - LogOutResponse
+struct LogOutResponse: Codable {
+    let success: Bool?
+}

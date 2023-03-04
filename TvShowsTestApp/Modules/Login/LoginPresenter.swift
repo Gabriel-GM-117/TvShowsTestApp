@@ -7,7 +7,7 @@ class LoginPresenter: LoginPresenterProtocol  {
     var interactor: LoginInteractorInputProtocol?
     var router: LoginRouterProtocol?
     
-    func btnAction() {
+    func loadInfo() {
         interactor?.getToken()
     }
     
@@ -18,7 +18,7 @@ class LoginPresenter: LoginPresenterProtocol  {
 }
 
 extension LoginPresenter: LoginInteractorOutputProtocol {
-    
+
     // TODO: implement interactor output methods
     func didRetrive(data: AuthToken) {
         guard let token = data.requestToken else { return }

@@ -4,7 +4,7 @@ import UIKit
 protocol LaunchMoviesViewProtocol: AnyObject {
     // PRESENTER -> VIEW
     var presenter: LaunchMoviesPresenterProtocol? { get set }
-    func showMovieList(dataMovies: [PopularMoviesEntity])
+    func showMovieList(dataMovies: [MovieEntity])
 }
 
 protocol LaunchMoviesRouterProtocol: AnyObject {
@@ -23,11 +23,12 @@ protocol LaunchMoviesPresenterProtocol: AnyObject {
     func getInfoMovies(flow: CategoryFlow)
     func presentInfo(id: Int, flow: Flow)
     func showInfoPerfil()
+    func closeSession()
 }
 
 protocol LaunchMoviesInteractorOutputProtocol: AnyObject {
     // INTERACTOR -> PRESENTER
-    func didRetrive(dataMovies: [PopularMoviesEntity])
+    func didRetrive(dataMovies: [MovieEntity])
     func didRetrive(data: Any, flow: Flow)
 }
 
@@ -37,4 +38,5 @@ protocol LaunchMoviesInteractorInputProtocol: AnyObject {
     func getMovies(flow: CategoryFlow)
     func getMovieDetail(idMovie: Int)
     func getTVShowDetail(idTVShow: Int)
+    func logOut()
 }

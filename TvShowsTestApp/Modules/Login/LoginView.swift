@@ -3,7 +3,7 @@ import UIKit
 
 class LoginView: UIViewController {
     
-    let loginContentView: UIImageView = {
+    private let loginContentView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "login")
         imageView.backgroundColor = .cyan
@@ -12,23 +12,26 @@ class LoginView: UIViewController {
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
-    let userNameTextField: UITextField = {
+    
+    private let userNameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Username"
         return textField
     }()
-    let passwordTextField: UITextField = {
+    
+    private let passwordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Password"
         return textField
     }()
-    let loginButton: UIButton = {
+    
+    private let loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Log in", for: .normal)
         return button
     }()
     
-    let labelError: UILabel = {
+    private let labelError: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 6)
@@ -49,7 +52,7 @@ class LoginView: UIViewController {
     // MARK: Lifecycle
     override func loadView() {
         super.loadView()
-        self.presenter?.btnAction()
+        self.presenter?.loadInfo()
     }
 
     override func viewDidLoad() {
@@ -57,8 +60,12 @@ class LoginView: UIViewController {
         setupLoginContentView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
-    func setupLoginContentView() {
+    }
+    
+    private func setupLoginContentView() {
         view.addSubview(loginContentView)
         loginContentView.addSubview(userNameTextField)
         loginContentView.addSubview(passwordTextField)
@@ -77,7 +84,6 @@ class LoginView: UIViewController {
         setupLabelError()
         
         labelError.isHidden = self.showViewError
-        
     }
     
     @objc private func nextFlow() {
@@ -86,14 +92,13 @@ class LoginView: UIViewController {
         if self.requestAgain {
             self.presenter?.requestAgain()
         } else {
-            self.presenter?.btnAction()
+            self.presenter?.loadInfo()
         }
-        
     }
 }
 
 extension LoginView {
-    func setupEmailTextField() {
+    private func setupEmailTextField() {
         userNameTextField.translatesAutoresizingMaskIntoConstraints = false
         userNameTextField.backgroundColor = .white
         userNameTextField.frame.size.width = 200
@@ -103,7 +108,7 @@ extension LoginView {
         userNameTextField.widthAnchor.constraint(equalToConstant: 300).isActive = true
         userNameTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
-    func setupPasswordTextField() {
+    private func setupPasswordTextField() {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.backgroundColor = .white
         passwordTextField.frame.size.width = 200
@@ -113,7 +118,7 @@ extension LoginView {
         passwordTextField.widthAnchor.constraint(equalToConstant: 300).isActive = true
         passwordTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
-    func setupLoginButton() {
+    private func setupLoginButton() {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.backgroundColor = .white
         loginButton.frame.size.width = 100
@@ -124,7 +129,7 @@ extension LoginView {
         loginButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
-    func setupLabelError() {
+    private func setupLabelError() {
         labelError.translatesAutoresizingMaskIntoConstraints = false
         labelError.backgroundColor = self.view.backgroundColor
         labelError.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 40).isActive = true

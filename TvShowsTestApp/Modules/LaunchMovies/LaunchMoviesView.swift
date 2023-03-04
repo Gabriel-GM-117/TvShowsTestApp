@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class LaunchMoviesView: UIViewController {
-    
+  
     private let movieCategorySegmented: UISegmentedControl = {
         let segmentItems = [CategoryFlow.popular.title,
                             CategoryFlow.topRated.title,
@@ -22,15 +22,15 @@ class LaunchMoviesView: UIViewController {
         
         var collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = UIColor.white
         collectionView.register(MovieViewCell.self, forCellWithReuseIdentifier: "MovieViewCell")
         collectionView.backgroundColor = UIColor(hexString: "#21242e")
         return collectionView
         }()
+    
 
     // MARK: Properties
     var presenter: LaunchMoviesPresenterProtocol?
-    var dataModel: [PopularMoviesEntity] = []
+    var dataModel: [MovieEntity] = []
     private var flowSegmentedControl = CategoryFlow.popular
   
      init() {
@@ -47,6 +47,12 @@ class LaunchMoviesView: UIViewController {
         presentInfo()
         configNavBar()
         setUpView()
+        createTable()
+    }
+    
+    private func createTable() {
+        let database = SQLiteDatabase.sharedInstance
+        database.createTableMovies()
     }
     
     
@@ -69,7 +75,6 @@ class LaunchMoviesView: UIViewController {
         moviesCollectionView.delegate = self
         moviesCollectionView.dataSource = self
         view.addSubview(moviesCollectionView)
-        
         view.addConstraint(NSLayoutConstraint(item: movieCategorySegmented,
                                               attribute: .top,
                                               relatedBy: .equal,
@@ -82,7 +87,6 @@ class LaunchMoviesView: UIViewController {
             self.movieCategorySegmented.heightAnchor.constraint(equalToConstant: 50),
             self.movieCategorySegmented.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             self.movieCategorySegmented.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-
 
             self.moviesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             self.moviesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
@@ -129,12 +133,11 @@ class LaunchMoviesView: UIViewController {
 
 extension LaunchMoviesView: LaunchMoviesViewProtocol {
     // TODO: implement view output methods
-    func showMovieList(dataMovies: [PopularMoviesEntity]) {
+    func showMovieList(dataMovies: [MovieEntity]) {
         self.dataModel = dataMovies
         DispatchQueue.main.async {
             self.moviesCollectionView.reloadData()
         }
-        
     }
 }
 
@@ -143,15 +146,15 @@ extension LaunchMoviesView: UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         self.dataModel.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieViewCell", for: indexPath) as? MovieViewCell else { return UICollectionViewCell() }
         cell.setInformation(model: self.dataModel[indexPath.row])
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let id = self.dataModel[indexPath.row].id ?? 0
+        let id = self.dataModel[indexPath.row].id
         switch self.flowSegmentedControl {
         case .popular:
             presenter?.presentInfo(id: id, flow: Flow.movie)

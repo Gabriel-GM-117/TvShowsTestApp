@@ -1,7 +1,7 @@
 import UIKit
 
 class MovieViewCell: UICollectionViewCell {
-    let movieImageView: UIImageView = {
+    private let movieImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -10,7 +10,7 @@ class MovieViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let movieName: UILabel = {
+    private let movieName: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 10)
@@ -19,7 +19,7 @@ class MovieViewCell: UICollectionViewCell {
         return label
     }()
     
-    let movieDescription: UILabel = {
+    private let movieDescription: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 8)
@@ -28,7 +28,7 @@ class MovieViewCell: UICollectionViewCell {
         return label
     }()
     
-    let movieView: UIView = {
+    private let movieView: UIView = {
         let view = UIView()
         view.backgroundColor =  UIColor(hexString: "#20414d")
         view.clipsToBounds = false
@@ -40,12 +40,25 @@ class MovieViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
+    private let movieFavoriteImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "iconFavoriteOff")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+    
+    
+    var modelData: MovieEntity?
+    let imgOff = UIImage(named: "iconFavoriteOff")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+    let imgOn = UIImage(named: "iconFavoriteOn")?.withTintColor(.red, renderingMode: .alwaysOriginal)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        self.contentView.backgroundColor = UIColor(hexString: "#21242e")
+        self.contentView.backgroundColor = self.superview?.backgroundColor
     }
     
     required init?(coder: NSCoder) {
@@ -57,24 +70,33 @@ class MovieViewCell: UICollectionViewCell {
         movieView.addSubview(movieImageView)
         movieView.addSubview(movieName)
         movieView.addSubview(movieDescription)
-        
+        movieView.addSubview(movieFavoriteImage)
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(checkFavorite))
+        movieFavoriteImage.addGestureRecognizer(gesture)
+        self.movieFavoriteImage.image = imgOff
+       
         NSLayoutConstraint.activate([
+            movieFavoriteImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14),
+            movieFavoriteImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            movieFavoriteImage.widthAnchor.constraint(equalToConstant: 30),
+            movieFavoriteImage.heightAnchor.constraint(equalToConstant: 30),
+            
             movieView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             movieView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             movieView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             movieView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-
+            
             movieImageView.leadingAnchor.constraint(equalTo: movieView.leadingAnchor),
             movieImageView.trailingAnchor.constraint(equalTo: movieView.trailingAnchor),
             
             movieImageView.topAnchor.constraint(equalTo: movieView.topAnchor),
             movieImageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100),
-
+            
             movieName.leadingAnchor.constraint(equalTo: movieView.leadingAnchor, constant: 10),
             movieName.trailingAnchor.constraint(equalTo: movieView.trailingAnchor, constant: -5),
             movieName.topAnchor.constraint(greaterThanOrEqualTo: movieImageView.bottomAnchor, constant: 10),
             movieName.heightAnchor.constraint(equalToConstant: 15),
-
+            
             movieDescription.leadingAnchor.constraint(equalTo: movieView.leadingAnchor, constant: 10),
             movieDescription.trailingAnchor.constraint(equalTo: movieView.trailingAnchor, constant: -5),
             movieDescription.heightAnchor.constraint(equalToConstant: 30),
@@ -85,10 +107,54 @@ class MovieViewCell: UICollectionViewCell {
         ])
     }
     
-    func setInformation(model: PopularMoviesEntity) {
+    func setInformation(model: MovieEntity) {
         guard let url = URL(string: Path.baseImage.stringURL + model.imageURL) else { return }
         movieImageView.load(url: url)
         movieName.text = model.title
         movieDescription.text = model.overview
+        self.movieFavoriteImage.image = UIImage(named: "iconFavoriteOff")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        self.modelData = model
+        isFavorite()
+    }
+    
+    private func createMovieObjt(_ valueData: MovieEntity) {
+        let movieAddedToTable = SQLiteCommands.insertRowMovie(valueData)
+        
+        if movieAddedToTable == true {
+            self.movieFavoriteImage.image = UIImage(named: "iconFavoriteOn")?.withTintColor(.red, renderingMode: .alwaysOriginal)
+            print("se creo celda")
+        } else {
+            self.movieFavoriteImage.image = UIImage(named: "iconFavoriteOff")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+            //showError("Error", message: "")
+            print("no se pudo crear celda")
+        }
+    }
+    
+    @objc func checkFavorite() {
+        
+        print("check")
+        guard let data = self.modelData else { return }
+        let existNulable = SQLiteCommands.adviseWithRowsMovie(data)
+        guard let exist = existNulable else { return }
+        
+        if exist {
+            self.movieFavoriteImage.image = imgOff
+            let _ = SQLiteCommands.deleteRowMovie(movieID: data.id)
+        } else {
+            self.movieFavoriteImage.image = imgOn
+            createMovieObjt(data)
+        }
+    }
+    
+    func isFavorite(){
+        guard let data = self.modelData else { return }
+        let existNulable = SQLiteCommands.adviseWithRowsMovie(data)
+        guard let exist = existNulable else { return }
+        
+        if exist {
+            self.movieFavoriteImage.image = imgOn
+        } else {
+            self.movieFavoriteImage.image = imgOff
+        }
     }
 }

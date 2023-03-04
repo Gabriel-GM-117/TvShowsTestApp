@@ -1,4 +1,7 @@
 import Foundation
+import UIKit
+import ProgressHUD
+
 
 class LoginInteractor: LoginInteractorInputProtocol {
     
@@ -12,12 +15,10 @@ class LoginInteractor: LoginInteractorInputProtocol {
                 switch result {
                 case .success(let success):
                     guard let objResp = success else { return }
-
                     Repository.tokenAuth = objResp
                     let defaults = UserDefaults.standard
                     defaults.set(objResp.requestToken, forKey: "Auth")
                     self?.getAuth(token: objResp.requestToken ?? "")
-
                 case .failure(let failure):
                     print("error\(failure)")
                 }
@@ -28,22 +29,23 @@ class LoginInteractor: LoginInteractorInputProtocol {
     func getAuth(token: String) {
         self.service.getAuth(strToken: token) { [weak self] result in
             switch result {
-            case .success(_):
-//                guard let objResp = success else { return }
-
+            case .success(let result):
+                guard let result = result else { return }
+                Repository.authSession = result
                 self?.presenter?.didFlow()
             case .failure(_):
                 self?.presenter?.didRetrive(failure: true)
+                
             }
         }
     }
     
     func getAuthUser(token: String) {
+        ProgressHUD.show("Loading")
         self.service.getAuthUser(strToken: token) {  [weak self] result in
+            ProgressHUD.dismiss()
             switch result {
             case .success(_):
-//                guard let objResp = success else { return }
-     
                 self?.presenter?.didFlow()
             case .failure(_):
                 self?.presenter?.didShowErro(failure: false)

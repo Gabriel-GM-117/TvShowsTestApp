@@ -9,7 +9,7 @@ internal class ServicesManager {
         
         URLSession.shared.dataTask(with: url) { data, response , error in
             guard let data = data else {
-                return completion(.failure(RequestError( statusCode: 0,description: "Error desconocido", data: nil)))
+                return completion(.failure(RequestError( statusCode: 0,description: "Error desconocido \(String(describing: error))", data: nil)))
                 
             }
             
@@ -21,12 +21,15 @@ internal class ServicesManager {
                 let decoder = JSONDecoder()
                 do {
                     let respData = try decoder.decode(OutputObject.self, from: data)
-                    print("movies: \(respData)")
+//                    print("movies: \(respData)")
                     completion(.success(respData))
                 } catch {
                     print("Error en la serialización \(error)")
-                    completion(.failure(RequestError( statusCode: 0,description: "Error en la serialización", data: data)))
+                    completion(.failure(RequestError( statusCode: 0,description: "Error en la serialización \(error)", data: data)))
                 }
+            } else {
+                print("Error http \(String(describing: error?.localizedDescription)), statusCode: \(httpResp.statusCode)")
+                completion(.failure(RequestError( statusCode: 0,description: "Error http \(String(describing: error?.localizedDescription)), statusCode: \(httpResp.statusCode)", data: data)))
             }
             
         }.resume()
@@ -74,7 +77,7 @@ internal class ServicesManager {
                 let decoder = JSONDecoder()
                 do {
                     let respData = try decoder.decode(T.self, from: data)
-                    print("movies: \(respData)")
+                    print("responseData: \(respData)")
                     completion(.success(respData))
                 } catch {
                     print("Error en la serialización \(error)")

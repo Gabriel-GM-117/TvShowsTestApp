@@ -20,7 +20,7 @@ protocol LoginPresenterProtocol: AnyObject {
     var view: LoginViewProtocol? { get set }
     var interactor: LoginInteractorInputProtocol? { get set }
     var router: LoginRouterProtocol? { get set }
-    func btnAction()
+    func loadInfo()
     func requestAgain()
 }
 
