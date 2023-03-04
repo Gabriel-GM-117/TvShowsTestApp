@@ -1,4 +1,5 @@
 import Foundation
+import ProgressHUD
 
 class LoginPresenter: LoginPresenterProtocol  {
     
@@ -12,6 +13,8 @@ class LoginPresenter: LoginPresenterProtocol  {
     }
     
     func requestAgain() {
+        ProgressHUD.show("Loading")
+        ProgressHUD.fontStatus = .boldSystemFont(ofSize: 20)
         let token = Repository.tokenAuth?.requestToken
         interactor?.getAuthUser(token: token ?? "")
     }

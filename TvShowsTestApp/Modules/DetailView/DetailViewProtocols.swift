@@ -4,7 +4,6 @@ import UIKit
 protocol DetailViewViewProtocol: AnyObject {
     // PRESENTER -> VIEW
     var presenter: DetailViewPresenterProtocol? { get set }
-    func showMovieList(dataMovie: DetailMovieResponse)
 }
 
 protocol DetailViewWireRouterProtocol: AnyObject {
@@ -17,16 +16,13 @@ protocol DetailViewPresenterProtocol: AnyObject {
     var view: DetailViewViewProtocol? { get set }
     var interactor: DetailViewInteractorInputProtocol? { get set }
     var router: DetailViewWireRouterProtocol? { get set }
-    func getInfoMovie(idMovie: Int)
 }
 
 protocol DetailViewInteractorOutputProtocol: AnyObject {
     // INTERACTOR -> PRESENTER
-    func didRetrive(dataMovie: DetailMovieResponse)
 }
 
 protocol DetailViewInteractorInputProtocol: AnyObject {
     // PRESENTER -> INTERACTOR
     var presenter: DetailViewInteractorOutputProtocol? { get set }
-    func getMovie(idMovie: Int)
 }

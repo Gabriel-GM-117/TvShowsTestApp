@@ -58,11 +58,12 @@ class LoginView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLoginContentView()
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     private func setupLoginContentView() {

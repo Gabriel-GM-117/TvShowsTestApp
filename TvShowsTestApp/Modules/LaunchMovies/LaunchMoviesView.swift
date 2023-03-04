@@ -16,10 +16,8 @@ class LaunchMoviesView: UIViewController {
     }()
     
     private var moviesCollectionView: UICollectionView = {
-
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        
         var collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(MovieViewCell.self, forCellWithReuseIdentifier: "MovieViewCell")
@@ -57,6 +55,7 @@ class LaunchMoviesView: UIViewController {
     
     
     private func configNavBar() {
+        self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.backgroundColor = UIColor(hexString: "#3b3e4d")
         self.navigationItem.title = "Tv Shows"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "iconList")?.withTintColor(.white, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(buttonAction))
@@ -170,6 +169,6 @@ extension LaunchMoviesView: UICollectionViewDelegate, UICollectionViewDataSource
 
 extension LaunchMoviesView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 180, height: 320)
+        return CGSize(width: (view.frame.width/2)-25 , height: (view.frame.height/2)-80 )
     }
 }

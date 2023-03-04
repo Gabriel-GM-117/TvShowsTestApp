@@ -41,7 +41,6 @@ class LoginInteractor: LoginInteractorInputProtocol {
     }
     
     func getAuthUser(token: String) {
-        ProgressHUD.show("Loading")
         self.service.getAuthUser(strToken: token) {  [weak self] result in
             ProgressHUD.dismiss()
             switch result {

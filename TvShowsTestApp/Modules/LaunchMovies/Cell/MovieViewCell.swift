@@ -67,6 +67,7 @@ class MovieViewCell: UICollectionViewCell {
     
     func setupViews() {
         self.contentView.addSubview(movieView)
+        self.contentView.clipsToBounds = true
         movieView.addSubview(movieImageView)
         movieView.addSubview(movieName)
         movieView.addSubview(movieDescription)

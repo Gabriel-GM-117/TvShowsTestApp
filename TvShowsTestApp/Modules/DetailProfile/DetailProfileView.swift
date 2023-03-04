@@ -57,6 +57,7 @@ class DetailProfileView: UIViewController {
     // MARK: Properties
     var presenter: DetailProfilePresenterProtocol?
     var dataModel: [MovieEntity] = []
+    private let myCellWidth = UIScreen.main.bounds.width / 2
 
     // MARK: Lifecycle
 
@@ -76,6 +77,7 @@ class DetailProfileView: UIViewController {
         view.addSubview(moviesDetailCollectionView)
         moviesDetailCollectionView.delegate = self
         moviesDetailCollectionView.dataSource = self
+        moviesDetailCollectionView.clipsToBounds = true
         moviesDetailCollectionView.backgroundColor = self.view.backgroundColor
         view.backgroundColor = UIColor(hexString: "#27282b")
 
@@ -93,14 +95,14 @@ class DetailProfileView: UIViewController {
             profileName.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             profileName.centerYAnchor.constraint(equalTo: profileImage.centerYAnchor),
             
-            titleFavorites.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 100),
+            titleFavorites.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 80),
             titleFavorites.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             titleFavorites.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             moviesDetailCollectionView.topAnchor.constraint(equalTo: titleFavorites.bottomAnchor, constant: 15),
             moviesDetailCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             moviesDetailCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            moviesDetailCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
+            moviesDetailCollectionView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor, constant: -20)
         ])
     }
 }
@@ -136,6 +138,6 @@ extension DetailProfileView: UICollectionViewDelegate, UICollectionViewDataSourc
 
 extension DetailProfileView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 180, height: 320)
+        return CGSize(width: (view.frame.width/2)-50, height: (view.frame.height/2)-80)
     }
 }

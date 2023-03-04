@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
   
         let initialVC = LoginRouter.createLoginModule()
+//        let initialVC = LaunchMoviesRouter.createLaunchMoviesModule()
         let navigationController = UINavigationController(rootViewController: initialVC)
         
         window.rootViewController = navigationController

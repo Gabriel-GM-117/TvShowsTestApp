@@ -202,11 +202,7 @@ class DetailViewVC: UIViewController {
 }
 
 extension DetailViewVC: DetailViewViewProtocol {
-   
     // TODO: implement view output methods
-    func showMovieList(dataMovie: DetailMovieResponse) {
-        //
-    }
 }
 
 
