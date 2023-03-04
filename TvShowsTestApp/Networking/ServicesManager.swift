@@ -21,7 +21,6 @@ internal class ServicesManager {
                 let decoder = JSONDecoder()
                 do {
                     let respData = try decoder.decode(OutputObject.self, from: data)
-//                    print("movies: \(respData)")
                     completion(.success(respData))
                 } catch {
                     print("Error en la serialización \(error)")

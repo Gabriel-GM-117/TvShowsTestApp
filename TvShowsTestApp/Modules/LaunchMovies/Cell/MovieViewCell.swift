@@ -125,7 +125,6 @@ class MovieViewCell: UICollectionViewCell {
             print("se creo celda")
         } else {
             self.movieFavoriteImage.image = UIImage(named: "iconFavoriteOff")?.withTintColor(.white, renderingMode: .alwaysOriginal)
-            //showError("Error", message: "")
             print("no se pudo crear celda")
         }
     }

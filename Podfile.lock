@@ -1,0 +1,26 @@
+PODS:
+  - ProgressHUD (13.6.2)
+  - SQLite.swift (0.14.1):
+    - SQLite.swift/standard (= 0.14.1)
+  - SQLite.swift/standard (0.14.1)
+  - SVProgressHUD (2.2.5)
+
+DEPENDENCIES:
+  - ProgressHUD
+  - SQLite.swift
+  - SVProgressHUD
+
+SPEC REPOS:
+  trunk:
+    - ProgressHUD
+    - SQLite.swift
+    - SVProgressHUD
+
+SPEC CHECKSUMS:
+  ProgressHUD: 355915c8f033e626788fa9b0d99d06e8691595ab
+  SQLite.swift: 2992550ebf3c5b268bf4352603e3df87d2a4ed72
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+
+PODFILE CHECKSUM: dc134ad9ef7a82cb8dfb70ad659ca3e99f9c6d16
+
+COCOAPODS: 1.11.3

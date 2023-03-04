@@ -12,7 +12,6 @@ protocol DetailProfileRouterProtocol: AnyObject {
     // PRESENTER -> WIREFRAME
     static func createDetailProfileModule() -> UIViewController
     var view: DetailProfileViewProtocol? { get set }
-    func showDetailView(data: Any, flow: Flow)
 }
 
 protocol DetailProfilePresenterProtocol: AnyObject {

@@ -21,9 +21,4 @@ class DetailProfileRouter: DetailProfileRouterProtocol {
         return view
     }
     
-    func showDetailView(data: Any, flow: Flow) {
-        //
-    }
-    
-    
 }
